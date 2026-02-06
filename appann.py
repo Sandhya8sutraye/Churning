@@ -12,21 +12,14 @@ except NameError:
 
 
 ###loading the model
-BASE_DIR = os.path.dirname(os.path.abspath(_file_))
-
-# Load ANN model
-# Load model
 model = tf.keras.models.load_model(BASE_DIR / "model.h5")
 
-# Load scaler
 with open(BASE_DIR / "scaler.pkl", "rb") as f:
     scaler = pickle.load(f)
 
-# Load label encoder
 with open(BASE_DIR / "label_encoder_gender.pkl", "rb") as f:
     label_encoder_gender = pickle.load(f)
 
-# Load one-hot encoder
 with open(BASE_DIR / "onehot_encode_geo.pkl", "rb") as f:
     onehot_encode_geo = pickle.load(f)
 
