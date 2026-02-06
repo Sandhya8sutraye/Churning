@@ -1,29 +1,33 @@
-import streamlit as st
 import os
-import pandas as pd
-import numpy as np
 import pickle
 import tensorflow as tf
-from sklearn.preprocessing import StandardScaler,OneHotEncoder,LabelEncoder
+import streamlit as st
+from pathlib import Path
+
+# Get base directory safely (works locally + Streamlit Cloud)
+try:
+    BASE_DIR = Path(__file__).resolve().parent
+except NameError:
+    BASE_DIR = Path.cwd()
+
 
 ###loading the model
 BASE_DIR = os.path.dirname(os.path.abspath(_file_))
 
 # Load ANN model
-model = tf.keras.models.load_model(
-    os.path.join(BASE_DIR, "model.h5")
-)
+# Load model
+model = tf.keras.models.load_model(BASE_DIR / "model.h5")
 
 # Load scaler
-with open(os.path.join(BASE_DIR, "scaler.pkl"), "rb") as f:
+with open(BASE_DIR / "scaler.pkl", "rb") as f:
     scaler = pickle.load(f)
 
 # Load label encoder
-with open(os.path.join(BASE_DIR, "label_encoder_gender.pkl"), "rb") as f:
+with open(BASE_DIR / "label_encoder_gender.pkl", "rb") as f:
     label_encoder_gender = pickle.load(f)
 
 # Load one-hot encoder
-with open(os.path.join(BASE_DIR, "onehot_encode_geo.pkl"), "rb") as f:
+with open(BASE_DIR / "onehot_encode_geo.pkl", "rb") as f:
     onehot_encode_geo = pickle.load(f)
 
 #Streamlit app
